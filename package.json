@@ -14,8 +14,11 @@
   "author": "HungBM",
   "license": "ISC",
   "dependencies": {
+    "faker": "^4.1.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-tap-event-plugin": "^2.0.1",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-loader": "^7.1.0",

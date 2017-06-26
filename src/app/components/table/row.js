@@ -13,9 +13,9 @@ export class RowContent extends React.Component {
         var allowRender = true;
         if (this.state.rowNum ==0){
             allowRender = false;
-            console.log(this.props);
+            //console.log(this.props);
         }
-        console.log(this.props);
+        //console.log(this.props);
     }
     render(){
         if (this.state.rowNum>0){
@@ -23,9 +23,9 @@ export class RowContent extends React.Component {
                 <TableRow>
                     <TableRowColumn style={{fontWeight: 'bold',textAlign:'left',width:'15%',color:'#00ccff'}}>{this.props.rowContent.code}.AX</TableRowColumn>
                     <TableRowColumn style={{textAlign:'left',width:'40%',whiteSpace:'pre-wrap',color:'rgb(158, 158, 158)'}}>{this.props.rowContent.name}</TableRowColumn>
-                    <TableRowColumn style={{fontWeight: 'bold',textAlign:'right',width:'10%'}}>{this.props.rowContent.price}</TableRowColumn>
-                    <TableRowColumn style={{fontWeight: 'bold',textAlign:'right',width:'15%'}}>{Math.round(this.props.rowContent.price * this.props.rowContent.volume).toLocaleString('vi-VN',{minimumFractionDigits:0})}</TableRowColumn>
-                    <TableRowColumn style={{textAlign:'right',width:'10%'}}>{this.props.rowContent.change}</TableRowColumn>
+                    <TableRowColumn style={{fontWeight: 'bold',textAlign:'right',width:'10%'}}>{this.props.rowContent.price.toLocaleString('de-DE',{maximumFractionDigits:2})}</TableRowColumn>
+                    <TableRowColumn style={{fontWeight: 'bold',textAlign:'right',width:'15%'}}>{Math.round(this.props.rowContent.price * this.props.rowContent.volume).toLocaleString('de-DE',{minimumFractionDigits:0})}</TableRowColumn>
+                    <TableRowColumn style={{textAlign:'right',width:'10%'}}>{this.props.rowContent.change.toLocaleString('de-DE',{maximumFractionDigits:2})}</TableRowColumn>
                     <TableRowColumn style={{textAlign:'right',width:'10%'}}>{this.props.rowContent.percentChange}</TableRowColumn>
                 </TableRow>
             );

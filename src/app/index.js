@@ -22,6 +22,7 @@ class App extends React.Component {
     tempData = [];
     topGainers = [];
     topLosers = [];
+    test = 1;
     constructor(props) {
         injectTapEventPlugin();
         super(props);
@@ -35,19 +36,35 @@ class App extends React.Component {
                 change: '0.00',
                 percentChange: '0.00%'
             });
-            // console.log(this.initiateData);
         }
         this.tempData = this.initiateData;
         this.topGainers = _.sortBy(this.tempData,'volume').slice(0,20); //get top 20 element have greatest volume
         this.topLosers = _.sortBy(this.tempData,'volume').reverse().slice(0,20); //get top 20 element have least volume
-        console.log(this.topGainers );
-        console.log(this.topLosers );
-
-
+        //console.log(this.tempData );
+        //console.log(this.topLosers );
+        this.test = 2;
         this.state = {
             value: 'gainers',
+            tempData: this.tempData,
+            test: 1
         };
     }
+    componentDidMount() {
+        setInterval(this.timer.bind(this), 5000); //Run every 5 sec
+    };
+    timer() {
+        this.setState({test: this.test++});
+        var initData = this.initiateData;
+        //change value in tempData
+        for (var i = 0; i< this.state.tempData.length; i++){
+            var plusOrMinus = Math.random() < 0.5 ? -1 : 1; // random + or -
+            var oldPrice = Number(this.initiateData[i].price); //save old price
+            var newPrice = Number(this.state.tempData[i].price)+plusOrMinus*(Number(this.state.tempData[i].price)*Math.floor(Math.random() * 6))/100; // new price
+            this.state.tempData[i].price=newPrice; //set price = newPrice
+            this.state.tempData[i].change =  newPrice - oldPrice; //compare new to old
+            //console.log(oldPrice+ ' '+ newPrice);
+        }
+    };
     handleChange = (value) => {
         this.setState({
             value: value,
@@ -71,7 +88,7 @@ class App extends React.Component {
                     >
                     </Tab>
                     <Tab
-                        label=" "
+                        label=''
                         value="holder2"
                         disabled={true}
                     >
@@ -86,7 +103,7 @@ class App extends React.Component {
                         label="TOP GAINERS"
                         value="gainers"
                     >
-                        <TableContent content = {this.topGainers}/>
+                        <TableContent content = {this.topGainers} />
                     </Tab>
                     <Tab
                         label="TOP LOSERS"

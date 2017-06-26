@@ -9,20 +9,13 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import  faker from 'faker';
 import _ from 'underscore';
 
-var styles = {
-    appBar: {
-        flexWrap: 'wrap',
-    },
-    tabs: {
-        width: '100%',
-    },
-};
+var initiateData = [];
+
 class App extends React.Component {
     initiateData = [];
     tempData = [];
     topGainers = [];
     topLosers = [];
-    test = 1;
     constructor(props) {
         injectTapEventPlugin();
         super(props);
@@ -40,30 +33,32 @@ class App extends React.Component {
         this.tempData = this.initiateData;
         this.topGainers = _.sortBy(this.tempData,'volume').slice(0,20); //get top 20 element have greatest volume
         this.topLosers = _.sortBy(this.tempData,'volume').reverse().slice(0,20); //get top 20 element have least volume
-        //console.log(this.tempData );
-        //console.log(this.topLosers );
-        this.test = 2;
         this.state = {
             value: 'gainers',
             tempData: this.tempData,
-            test: 1
+            test: '1'
         };
     }
+
     componentDidMount() {
         setInterval(this.timer.bind(this), 5000); //Run every 5 sec
     };
     timer() {
-        this.setState({test: this.test++});
-        var initData = this.initiateData;
+        this.setState({test: 1});
         //change value in tempData
         for (var i = 0; i< this.state.tempData.length; i++){
             var plusOrMinus = Math.random() < 0.5 ? -1 : 1; // random + or -
-            var oldPrice = Number(this.initiateData[i].price); //save old price
+            var initPrice = Number(this.initiateData[i].price); //save old price
             var newPrice = Number(this.state.tempData[i].price)+plusOrMinus*(Number(this.state.tempData[i].price)*Math.floor(Math.random() * 6))/100; // new price
+            var newVolume = Number(this.state.tempData[i].volume)+Math.floor(Math.random() * (30 - 10 + 1)) + 10;
             this.state.tempData[i].price=newPrice; //set price = newPrice
-            this.state.tempData[i].change =  newPrice - oldPrice; //compare new to old
-            //console.log(oldPrice+ ' '+ newPrice);
+            this.state.tempData[i].change =  newPrice - initPrice; //compare new to old
+            this.state.tempData[i].volume =  newVolume;
+            this.state.tempData[i].percentChange = ((newPrice - initPrice)/initPrice)*100;
+           //console.log(Math.floor(Math.random() * (30 - 10 + 1)) + 10);
         }
+
+        console.log(this.initiateData);
     };
     handleChange = (value) => {
         this.setState({
@@ -74,7 +69,7 @@ class App extends React.Component {
         return (
             <MuiThemeProvider>
                 <Tabs
-                    style={{minWidth:'900px'}}
+                    style={{minWidth:'900px',width:'1000px', margin: 'auto'}}
                     value={this.state.value}
                     onChange={this.handleChange}
                     tabItemContainerStyle={{width: '100%'}}

@@ -14,6 +14,8 @@
   "author": "HungBM",
   "license": "ISC",
   "dependencies": {
+    "big.js": "^3.1.3",
+    "bigdecimal": "^0.6.1",
     "faker": "^4.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

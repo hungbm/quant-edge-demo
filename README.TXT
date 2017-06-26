@@ -4,4 +4,5 @@ npm install webpack webpack-dev-server babel-loader babel-preset-es2015 babel-pr
 npm install babel-core --save-dev﻿
 npm install faker --save
 npm install underscore --save
+npm install bigdecimal
 npm start

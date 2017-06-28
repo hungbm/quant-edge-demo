@@ -10,12 +10,6 @@ export class RowContent extends React.Component {
         this.state = {
             rowNum :props.rowNumber
         };
-        var allowRender = true;
-        if (this.state.rowNum ==0){
-            allowRender = false;
-            //console.log(this.props);
-        };
-
     }
     renderChangeColor(){
         if (this.props.rowContent.change< 0){
@@ -25,9 +19,9 @@ export class RowContent extends React.Component {
     };
     renderPercentChangeColor(){
         if (this.props.rowContent.change< 0){
-            return <TableRowColumn style={{textAlign:'right',width:'10%',color: '#ff0000'}}>{this.props.rowContent.percentChange.toLocaleString('de-DE',{minimumFractionDigits:2})}%</TableRowColumn>
+            return <TableRowColumn style={{textAlign:'right',width:'10%',color: '#ff0000'}}>{this.props.rowContent.percentChange.toLocaleString('de-DE',{maximumFractionDigits:2})}%</TableRowColumn>
 
-        } else { return <TableRowColumn style={{textAlign:'right',width:'10%',color: '#66ff66'}}>{this.props.rowContent.percentChange.toLocaleString('de-DE',{minimumFractionDigits:2})}%</TableRowColumn> }
+        } else { return <TableRowColumn style={{textAlign:'right',width:'10%',color: '#66ff66'}}>{this.props.rowContent.percentChange.toLocaleString('de-DE',{maximumFractionDigits:2})}%</TableRowColumn> }
     };
     render(){
         if (this.state.rowNum>0){
@@ -42,6 +36,5 @@ export class RowContent extends React.Component {
                 </TableRow>
             );
         }else return false;
-
     }
 }

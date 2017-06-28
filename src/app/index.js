@@ -9,7 +9,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import  faker from 'faker';
 import _ from 'underscore';
 
-var initiateData = [];
 
 class App extends React.Component {
     initiateData = [];
@@ -27,12 +26,20 @@ class App extends React.Component {
                 price: Math.floor(Math.random() * 100)+'.'+Math.random().toString().slice(2,4), //random price
                 volume: Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000, //random volume from 1000 to 1000000
                 change: '0.00',
-                percentChange: '0.00%'
+                percentChange: '0.00',
+                sessionValue: 0
             });
         }
-        this.tempData = this.initiateData;
-        this.topGainers = _.sortBy(this.tempData,'volume').slice(0,20); //get top 20 element have greatest volume
-        this.topLosers = _.sortBy(this.tempData,'volume').reverse().slice(0,20); //get top 20 element have least volume
+        //Copy data from initiateData array to tempData
+        for (var i =0 ; i< this.initiateData.length; i++){
+            this.tempData[i] = {};
+            for (var prop in this.initiateData[i]){
+                this.tempData[i][prop] = this.initiateData[i][prop]; // copy properties to tempData
+            }
+        }
+
+        this.topLosers = _.sortBy(this.tempData,'sessionValue').slice(0,20); //get top 20 element have greatest volume
+        this.topGainers = _.sortBy(this.tempData,'sessionValue').reverse().slice(0,20); //get top 20 element have least volume
         this.state = {
             value: 'gainers',
             tempData: this.tempData,
@@ -49,12 +56,20 @@ class App extends React.Component {
         for (var i = 0; i< this.state.tempData.length; i++){
             var plusOrMinus = Math.random() < 0.5 ? -1 : 1; // random + or -
             var initPrice = Number(this.initiateData[i].price); //save old price
+            var initVolume = Number(this.initiateData[i].volume);
             var newPrice = Number(this.state.tempData[i].price)+plusOrMinus*(Number(this.state.tempData[i].price)*Math.floor(Math.random() * 6))/100; // new price
             var newVolume = Number(this.state.tempData[i].volume)+Math.floor(Math.random() * (30 - 10 + 1)) + 10;
+            var sessValue = (newPrice - initPrice)*(newVolume-Number(this.state.tempData[i].volume)) + Number(this.state.tempData[i].sessionValue);
             this.state.tempData[i].price=newPrice; //set price = newPrice
             this.state.tempData[i].change =  newPrice - initPrice; //compare new to old
             this.state.tempData[i].volume =  newVolume;
             this.state.tempData[i].percentChange = ((newPrice - initPrice)/initPrice)*100;
+            this.state.tempData[i].sessionValue = sessValue;
+
+            //sort data
+            this.topLosers = _.sortBy(this.tempData,'sessionValue').slice(0,20); //get top 20 element have greatest volume
+            this.topGainers = _.sortBy(this.tempData,'sessionValue').reverse().slice(0,20); //get top 20 element have least volume
+
            //console.log(Math.floor(Math.random() * (30 - 10 + 1)) + 10);
         }
 

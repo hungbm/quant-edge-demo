@@ -4,5 +4,7 @@ npm install webpack webpack-dev-server babel-loader babel-preset-es2015 babel-pr
 npm install babel-core --save-dev﻿
 npm install faker --save
 npm install underscore --save
-npm install bigdecimal
+npm install react-tap-event-plugin --save
+npm install material-ui --save
+npm install jest --save-dev
 npm start

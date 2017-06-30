@@ -48,15 +48,14 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        setInterval(this.timer.bind(this), 5000); //Run every 5 sec
+        setInterval(this.timer, 5000); //Run every 5 sec
     };
-    timer() {
+    timer = () => {
         this.setState({test: 1});
         //change value in tempData
         for (var i = 0; i< this.state.tempData.length; i++){
             var plusOrMinus = Math.random() < 0.5 ? -1 : 1; // random + or -
             var initPrice = Number(this.initiateData[i].price); //save old price
-            var initVolume = Number(this.initiateData[i].volume);
             var newPrice = Number(this.state.tempData[i].price)+plusOrMinus*(Number(this.state.tempData[i].price)*Math.floor(Math.random() * 6))/100; // new price
             var newVolume = Number(this.state.tempData[i].volume)+Math.floor(Math.random() * (30 - 10 + 1)) + 10;
             var sessValue = (newPrice - initPrice)*(newVolume-Number(this.state.tempData[i].volume)) + Number(this.state.tempData[i].sessionValue);
@@ -72,8 +71,6 @@ class App extends React.Component {
 
            //console.log(Math.floor(Math.random() * (30 - 10 + 1)) + 10);
         }
-
-        console.log(this.initiateData);
     };
     handleChange = (value) => {
         this.setState({

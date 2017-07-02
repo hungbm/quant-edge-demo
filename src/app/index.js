@@ -51,7 +51,7 @@ class App extends React.Component {
         setInterval(this.timer, 5000); //Run every 5 sec
     };
     timer = () => {
-        this.setState({test: 1});
+        this.setState({tempData: this.tempData});
         //change value in tempData
         for (var i = 0; i< this.state.tempData.length; i++){
             var plusOrMinus = Math.random() < 0.5 ? -1 : 1; // random + or -
@@ -124,4 +124,4 @@ class App extends React.Component {
     }
 }
 
-render(<App />, window.document.getElementById('app'));
+render(<App />, document.getElementById('app'));

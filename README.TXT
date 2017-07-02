@@ -7,4 +7,7 @@ npm install underscore --save
 npm install react-tap-event-plugin --save
 npm install material-ui --save
 npm install jest --save-dev
+npm install --save-dev babel-jest regenerator-runtime
+//create .babelrc
+npm install --save-dev babel-plugin-transform-class-properties
 npm start

@@ -3,9 +3,15 @@ import App from '../src/app/App';
 import {mount, shallow} from 'enzyme';
 import ReactTestUtils from 'react-dom/test-utils';
 import ReactDOM from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
 describe('<App />', () => {
+
+    beforeAll(()=> {
+        injectTapEventPlugin();
+        jest.useFakeTimers()
+    });
     it('Renders 1 <App /> component', () => {
         const component = shallow(<App />);
         expect(component).toHaveLength(1);
@@ -22,20 +28,19 @@ describe('<App />', () => {
         expect(component.state('tempData')).toEqual(component.state('initiateData'));
     });
 
-    //This test not
     it('Switch between 2 tabs', () => {
-       const component =  mount(<App />);
+       const component =  shallow(<App />);
         expect(component.state('value')).toEqual('gainers');
-        console.log(component);
-        const tab = ReactDOM.findDOMNode(
-            ReactTestUtils.findRenderedDOMComponentWithTag(
-                component.instance(), 'Tab'
-            )
-        );
-        console.log(tab);
-        ReactTestUtils.Simulate.touchTap(tab);
-        //console.log(component.props.timer());
-        //tab.simulate('tap');
-       expect(component.state('value')).toEqual('losers');
+        component.find('Tabs').props().onChange('losers');
+        expect(component.state('value')).toEqual('losers');
+    });
+
+    it('timer() run corectly ', () => {
+
+        const component =  shallow(<App />);
+        expect(component.state('tempData')).toEqual(component.state('initiateData'));
+        jest.runTimersToTime(20000);
+        //console.log(component.props().timer());
+        expect(component.state('tempData')).not.toEqual(component.state('initiateData'));
     });
 });

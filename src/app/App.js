@@ -46,9 +46,6 @@ export default class App extends React.Component {
             test: '1'
         };
     }
-    add (x, y){
-        return x+y;
-    }
     componentDidMount() {
         setInterval(this.timer, 5000); //Run every 5 sec
     };
@@ -79,7 +76,6 @@ export default class App extends React.Component {
             value: value,
             test: this.state.test+1
         });
-        console.log(this.state.test);
     };
     render() {
         return (

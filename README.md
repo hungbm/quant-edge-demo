@@ -12,3 +12,7 @@ npm i --save-dev react-test-renderer react-dom
 //create .babelrc
 npm install --save-dev babel-plugin-transform-class-properties
 npm start
+
+TEST:
+
+npm test

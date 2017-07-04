@@ -67,7 +67,7 @@ export default class App extends React.Component {
             //sort data
             this.topLosers = _.sortBy(this.tempData,'sessionValue').slice(0,20); //get top 20 element have greatest volume
             this.topGainers = _.sortBy(this.tempData,'sessionValue').reverse().slice(0,20); //get top 20 element have least volume
-
+            //console.log(this.topGainers);
             //console.log(Math.floor(Math.random() * (30 - 10 + 1)) + 10);
         }
     };

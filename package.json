@@ -7,7 +7,7 @@
     "start": "npm run build",
     "build": "webpack -d && xcopy \"src/index.html\" \"dist/index.html\" /F /Y && webpack-dev-server --content-base src/ --inline ",
     "build:prod": "webpack -p && xcopy \"src/index.html\" \"dist/\" /F /Y",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "keywords": [
     "reactjs"

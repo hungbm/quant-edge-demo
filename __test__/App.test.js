@@ -1,8 +1,6 @@
 import React from 'react';
 import App from '../src/app/App';
 import {mount, shallow} from 'enzyme';
-import ReactTestUtils from 'react-dom/test-utils';
-import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
@@ -28,6 +26,12 @@ describe('<App />', () => {
         expect(component.state('tempData')).toEqual(component.state('initiateData'));
     });
 
+    it(' has TableContent components with array content of 20 items', () => {
+        const component =  shallow(<App />);
+        expect(component.find('TableContent').first().props().content.length).toEqual(20);
+        expect(component.find('TableContent').last().props().content.length).toEqual(20);
+    });
+
     it('Switch between 2 tabs', () => {
        const component =  shallow(<App />);
         expect(component.state('value')).toEqual('gainers');
@@ -35,12 +39,11 @@ describe('<App />', () => {
         expect(component.state('value')).toEqual('losers');
     });
 
-    it('timer() run corectly ', () => {
-
-        const component =  shallow(<App />);
+    it('make data change after 5 sec ', () => {
+        //this test componentDidMount
+        const component =  mount(<App />);
         expect(component.state('tempData')).toEqual(component.state('initiateData'));
-        jest.runTimersToTime(20000);
-        //console.log(component.props().timer());
+        jest.runTimersToTime(6000);
         expect(component.state('tempData')).not.toEqual(component.state('initiateData'));
     });
 });

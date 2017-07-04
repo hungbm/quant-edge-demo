@@ -4,7 +4,7 @@ import {
     TableRowColumn,
 } from 'material-ui/Table';
 
-export class RowContent extends React.Component {
+export  class RowContent extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -35,6 +35,9 @@ export class RowContent extends React.Component {
                     {this.renderPercentChangeColor()}
                 </TableRow>
             );
+
         }else return false;
     }
 }
+
+export default RowContent;
